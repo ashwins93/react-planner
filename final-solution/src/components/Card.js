@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 const StyledCard = styled.div`
   padding: 3rem;
   background-color: #eee;
-  margin: 0 2rem;
+  margin: 0 1rem;
   border-radius: 1rem;
   width: 25rem;
 

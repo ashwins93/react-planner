@@ -20,12 +20,33 @@ const Date = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width: 10rem;
 `;
 
 const Cards = styled.div`
   display: flex;
   flex-wrap: wrap;
   padding: 0 2rem;
+`;
+
+const AddCardButton = styled.button`
+  width: 25rem;
+  border: 3px dashed #eee;
+  color: #aaa;
+  text-transform: uppercase;
+  border-radius: 1rem;
+  font-size: 2rem;
+  margin: 0 1rem;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #f7f7f7;
+  }
+
+  &:active,
+  &:focus {
+    outline: none;
+  }
 `;
 
 const Day = props => {
@@ -43,7 +64,10 @@ const Day = props => {
         <div>{props.day.split(', ')[0]}</div>
         <div>{props.day.split(', ')[1]}</div>
       </Date>
-      <Cards>{cards}</Cards>
+      <Cards>
+        {cards}
+        <AddCardButton>Add a Card</AddCardButton>
+      </Cards>
     </StyledDay>
   );
 };
