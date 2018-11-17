@@ -1,33 +1,35 @@
-import React, { Component } from "react";
-import { Helmet } from "react-helmet";
+import React, { Component } from 'react';
+import { Helmet } from 'react-helmet';
 
-import moment from "./momentRange";
+import moment from './momentRange';
+import Calendar from './components/Calendar';
 
 window.moment = moment;
 
 class App extends Component {
   state = {
     events: {
-      "20181101": {
+      '20181101': {
         event1: {
-          title: "Build a React App",
-          time: "08:00",
-          description: "Roll out of bed and start building something",
+          title: 'Build a React App',
+          time: '08:00',
+          description: 'Roll out of bed and start building something',
         },
         event2: {
-          title: "Walk",
-          time: "16:00",
-          description: "Take a walk to relax muscles",
+          title: 'Walk',
+          time: '16:00',
+          description: 'Take a walk to relax muscles',
         },
       },
-      "20181105": {
+      '20181105': {
         event1: {
-          title: "Apply for a Job",
-          time: "09:00",
-          description: "Post job applications to Google, Facebook and Amazon",
+          title: 'Apply for a Job',
+          time: '09:00',
+          description: 'Post job applications to Google, Facebook and Amazon',
         },
       },
     },
+    currentMonth: '201811',
   };
 
   addOrEditEvent = (eventObj, date, key) => {
@@ -62,6 +64,7 @@ class App extends Component {
         <Helmet>
           <title>Planner</title>
         </Helmet>
+        <Calendar month={this.state.currentMonth} days={this.state.events} />
       </div>
     );
   }
