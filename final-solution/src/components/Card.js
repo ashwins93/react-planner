@@ -21,6 +21,15 @@ const StyledCard = styled.div`
     border-radius: 4px;
     font-size: 1.4rem;
   }
+
+  .icons button {
+    border: none;
+    background-color: transparent;
+    padding: 1rem;
+    font-size: 2rem;
+    cursor: pointer;
+    color: inherit;
+  }
 `;
 
 const Card = props => {
@@ -31,6 +40,14 @@ const Card = props => {
         <span className="badge">{props.event.time}</span>
       </div>
       <div>{props.event.description}</div>
+      <div className="icons">
+        <button>
+          <i class="far fa-edit" />
+        </button>
+        <button onClick={props.deleteEvent}>
+          <i class="far fa-trash-alt" />
+        </button>
+      </div>
     </StyledCard>
   );
 };
@@ -42,6 +59,7 @@ Card.propTypes = {
     time: PropTypes.string.isRequired,
   }).isRequired,
   expand: PropTypes.bool,
+  deleteEvent: PropTypes.func.isRequired,
 };
 
 export default Card;

@@ -79,7 +79,13 @@ class Day extends React.PureComponent {
       cards = Object.keys(props.events).map(key => {
         const event = props.events[key];
 
-        return <Card key={key} event={event} />;
+        return (
+          <Card
+            key={key}
+            event={event}
+            deleteEvent={() => props.deleteEvent(props.addr, key)}
+          />
+        );
       });
     }
 
@@ -95,10 +101,13 @@ class Day extends React.PureComponent {
         </Cards>
         {this.state.showModal && (
           <Modal closeModal={this.toggleModal}>
-            <Form heading="Add a Card" onSubmit={data => {
-              this.props.addOrEditEvent(data, this.props.addr);
-              this.toggleModal();
-            }} />
+            <Form
+              heading="Add a Card"
+              onSubmit={data => {
+                this.props.addOrEditEvent(data, this.props.addr);
+                this.toggleModal();
+              }}
+            />
           </Modal>
         )}
       </StyledDay>
