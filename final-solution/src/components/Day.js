@@ -84,6 +84,7 @@ class Day extends React.PureComponent {
             key={key}
             event={event}
             deleteEvent={() => props.deleteEvent(props.addr, key)}
+            editEvent={data => props.addOrEditEvent(data, props.addr, key)}
           />
         );
       });
