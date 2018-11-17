@@ -25,8 +25,8 @@ class App extends Component {
     },
   };
 
-  addEvent = (event, date) => {
-    let key = Date.now();
+  addOrEditEvent = (event, date, key) => {
+    if (!key) key = Date.now();
 
     this.setState(prevState => ({
       days: {
