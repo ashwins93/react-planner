@@ -1,10 +1,42 @@
 import React, { Component } from 'react';
 import { Helmet } from 'react-helmet';
+import { createGlobalStyle, ThemeProvider } from 'styled-components';
 
-import moment from './momentRange';
+// import moment from './momentRange';
 import Calendar from './components/Calendar';
 
-window.moment = moment;
+// only for debugging
+// window.moment = moment;
+
+const GlobalStyles = createGlobalStyle`
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+  }
+
+  html {
+    font-size: 62.5%;
+  }
+
+  body {
+    box-sizing: border-box;
+    font-family: 'Raleway', sans-serif;
+    font-size: 1.6rem;
+    color: #2d3436;
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+  }
+`;
+
+const theme = {
+  primary: '#0984e3',
+  black: '#2d3436',
+  white: '#f5f5f5',
+};
 
 class App extends Component {
   state = {
@@ -60,12 +92,19 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <>
         <Helmet>
           <title>Planner</title>
+          <link
+            href="https://fonts.googleapis.com/css?family=Raleway|Roboto:300"
+            rel="stylesheet"
+          />
         </Helmet>
-        <Calendar month={this.state.currentMonth} days={this.state.events} />
-      </div>
+        <GlobalStyles />
+        <ThemeProvider theme={theme}>
+          <Calendar month={this.state.currentMonth} days={this.state.events} />
+        </ThemeProvider>
+      </>
     );
   }
 }
