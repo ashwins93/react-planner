@@ -54,40 +54,56 @@ const StyledForm = styled.form`
   }
 `;
 
-const Form = props => {
-  return (
-    <StyledForm onSubmit={props.onSubmit}>
-      <h2>{props.heading}</h2>
-      <input
-        type="text"
-        name="title"
-        value={props.title}
-        onChange={props.handleChange}
-        placeholder="Title"
-      />
-      <input
-        type="text"
-        name="time"
-        value={props.time}
-        onChange={props.handleChange}
-        placeholder="Time"
-      />
-      <textarea
-        value={props.description}
-        name="description"
-        onChange={props.handleChange}
-      />
-      <button type="submit">Submit</button>
-    </StyledForm>
-  );
-};
+class Form extends React.PureComponent {
+  static propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+    heading: PropTypes.string.isRequired,
+  };
 
-Form.propTypes = {
-  title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  price: PropTypes.string.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  heading: PropTypes.string.isRequired,
-};
+  state = {
+    title: '',
+    time: '',
+    description: '',
+  };
+
+  handleChange = e =>
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+
+  handleSubmit = e => {
+    e.preventDefault();
+
+    this.props.onSubmit(this.state);
+  };
+
+  render() {
+    return (
+      <StyledForm onSubmit={this.handleSubmit}>
+        <h2>{this.props.heading}</h2>
+        <input
+          type="text"
+          name="title"
+          value={this.state.title}
+          onChange={this.handleChange}
+          placeholder="Title"
+        />
+        <input
+          type="text"
+          name="time"
+          value={this.state.time}
+          onChange={this.handleChange}
+          placeholder="Time"
+        />
+        <textarea
+          value={this.state.description}
+          name="description"
+          onChange={this.handleChange}
+        />
+        <button type="submit">Submit</button>
+      </StyledForm>
+    );
+  }
+}
 
 export default Form;

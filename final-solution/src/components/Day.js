@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Card from './Card';
 import Form from './Form';
+import Modal from './Modal';
 
 const StyledDay = styled.div`
   width: 100%;
@@ -50,18 +51,6 @@ const AddCardButton = styled.button`
   }
 `;
 
-const Modal = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
 class Day extends React.PureComponent {
   static propTypes = {
     day: PropTypes.string.isRequired,
@@ -105,8 +94,8 @@ class Day extends React.PureComponent {
           <AddCardButton onClick={this.toggleModal}>Add a Card</AddCardButton>
         </Cards>
         {this.state.showModal && (
-          <Modal>
-            <Form heading="Add a Card" />
+          <Modal closeModal={this.toggleModal}>
+            <Form heading="Add a Card" onSubmit={console.log} />
           </Modal>
         )}
       </StyledDay>
