@@ -39,6 +39,18 @@ class App extends Component {
     }));
   };
 
+  deleteEvent = (date, key) => {
+    let copy = { ...this.state.days[date] };
+    delete copy[key];
+
+    this.setState(prevState => ({
+      days: {
+        ...prevState.days,
+        [date]: copy,
+      },
+    }));
+  };
+
   render() {
     return <div className="App">Planner</div>;
   }
