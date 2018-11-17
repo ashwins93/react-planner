@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import styled from 'styled-components';
 import Card from './Card';
+import Form from './Form';
 
 const StyledDay = styled.div`
   width: 100%;
@@ -36,7 +37,7 @@ const AddCardButton = styled.button`
   text-transform: uppercase;
   border-radius: 1rem;
   font-size: 2rem;
-  margin: 0 1rem;
+  margin: 1rem;
   cursor: pointer;
 
   &:hover {
@@ -49,38 +50,68 @@ const AddCardButton = styled.button`
   }
 `;
 
-const Day = props => {
-  let cards = null;
-  if (props.events) {
-    cards = Object.keys(props.events).map(key => {
-      const event = props.events[key];
+const Modal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
-      return <Card key={key} event={event} />;
-    });
+class Day extends React.PureComponent {
+  static propTypes = {
+    day: PropTypes.string.isRequired,
+    events: PropTypes.objectOf(
+      PropTypes.shape({
+        description: PropTypes.string.isRequired,
+        time: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
+      }).isRequired,
+    ),
+  };
+
+  state = {
+    showModal: false,
+  };
+
+  toggleModal = () =>
+    this.setState(prevState => ({
+      showModal: !prevState.showModal,
+    }));
+
+  render() {
+    let cards = null;
+    const props = this.props;
+    if (props.events) {
+      cards = Object.keys(props.events).map(key => {
+        const event = props.events[key];
+
+        return <Card key={key} event={event} />;
+      });
+    }
+
+    return (
+      <StyledDay>
+        <Date>
+          <div>{props.day.split(', ')[0]}</div>
+          <div>{props.day.split(', ')[1]}</div>
+        </Date>
+        <Cards>
+          {cards}
+          <AddCardButton onClick={this.toggleModal}>Add a Card</AddCardButton>
+        </Cards>
+        {this.state.showModal && (
+          <Modal>
+            <Form heading="Add a Card" />
+          </Modal>
+        )}
+      </StyledDay>
+    );
   }
-  return (
-    <StyledDay>
-      <Date>
-        <div>{props.day.split(', ')[0]}</div>
-        <div>{props.day.split(', ')[1]}</div>
-      </Date>
-      <Cards>
-        {cards}
-        <AddCardButton>Add a Card</AddCardButton>
-      </Cards>
-    </StyledDay>
-  );
-};
-
-Day.propTypes = {
-  day: PropTypes.string.isRequired,
-  events: PropTypes.objectOf(
-    PropTypes.shape({
-      description: PropTypes.string.isRequired,
-      time: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-    }).isRequired,
-  ),
-};
+}
 
 export default Day;
