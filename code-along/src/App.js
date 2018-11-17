@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
 
+import moment from './momentRange';
+import Day from './components/Day';
+
+// ONLY FOR DEGBUGGING
+window.moment = moment;
+
 class App extends Component {
   state = {
     days: {
@@ -23,6 +29,7 @@ class App extends Component {
         },
       },
     },
+    currentMonth: '201811',
   };
 
   addOrEditEvent = (event, date, key) => {
@@ -51,8 +58,47 @@ class App extends Component {
     }));
   };
 
+  nextMonth = () => {
+    this.setState(prevState => ({
+      currentMonth: moment(prevState.currentMonth, 'YYYYMM')
+        .add(1, 'months')
+        .format('YYYYMM'),
+    }));
+  };
+
+  prevMonth = () => {
+    this.setState(prevState => ({
+      currentMonth: moment(prevState.currentMonth, 'YYYYMM')
+        .subtract(1, 'months')
+        .format('YYYYMM'),
+    }));
+  };
+
   render() {
-    return <div className="App">Planner</div>;
+    let dates = Array.from(
+      moment(this.state.currentMonth, 'YYYYMM')
+        .range('month')
+        .by('days'),
+    );
+    return (
+      <div className="App">
+        <h1>
+          {moment(this.state.currentMonth, 'YYYYMM').format('MMMM, YYYY')}
+        </h1>
+        <button onClick={this.prevMonth}>&larr;</button>
+        <button onClick={this.nextMonth}>&rarr;</button>
+
+        {dates.map(date => {
+          return (
+            <Day
+              key={date.format('YYYYMMDD')}
+              date={date}
+              events={this.state.days[date.format('YYYYMMDD')]}
+            />
+          );
+        })}
+      </div>
+    );
   }
 }
 
