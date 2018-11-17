@@ -13,10 +13,21 @@ const StyledCalendar = styled.div`
     background-color: #fff;
     position: sticky;
     top: 0;
+    display: flex;
+    justify-content: space-between;
   }
 
   h1 {
     padding: 3rem;
+  }
+
+  header i {
+    display: flex;
+    align-items: center;
+    margin: 0 2rem;
+    font-size: 2rem;
+    color: #ddd;
+    cursor: pointer;
   }
 `;
 
@@ -28,14 +39,23 @@ const Calendar = props => {
   const days = Array.from(range.by('days')).map(day => {
     const key = day.format('YYYYMMDD');
     return (
-      <Day key={key} addr={key} events={props.days[key]} addOrEditEvent={props.addOrEditEvent} deleteEvent={props.deleteEvent} day={day.format('ddd, DD')} />
+      <Day
+        key={key}
+        addr={key}
+        events={props.days[key]}
+        addOrEditEvent={props.addOrEditEvent}
+        deleteEvent={props.deleteEvent}
+        day={day.format('ddd, DD')}
+      />
     );
   });
 
   return (
     <StyledCalendar>
       <header>
+        <i onClick={props.prevMonth} className="fas fa-chevron-left" />
         <h1>{range.start.format('MMMM YYYY')}</h1>
+        <i onClick={props.nextMonth} className="fas fa-chevron-right" />
       </header>
       <div>{days}</div>
     </StyledCalendar>

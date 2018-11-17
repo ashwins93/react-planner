@@ -68,10 +68,10 @@ class Card extends React.PureComponent {
         <div>{props.event.description}</div>
         <div className="icons">
           <button onClick={this.toggleModal}>
-            <i class="far fa-edit" />
+            <i className="far fa-edit" />
           </button>
           <button onClick={props.deleteEvent}>
-            <i class="far fa-trash-alt" />
+            <i className="far fa-trash-alt" />
           </button>
         </div>
         {this.state.showModal && (

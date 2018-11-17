@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Helmet } from 'react-helmet';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 
-// import moment from './momentRange';
+import moment from './momentRange';
 import Calendar from './components/Calendar';
 
 // only for debugging
@@ -90,6 +90,22 @@ class App extends Component {
     }));
   };
 
+  nextMonth = () => {
+    this.setState(prevState => ({
+      currentMonth: moment(prevState.currentMonth, 'YYYYMM')
+        .add(1, 'months')
+        .format('YYYYMM'),
+    }));
+  };
+
+  prevMonth = () => {
+    this.setState(prevState => ({
+      currentMonth: moment(prevState.currentMonth, 'YYYYMM')
+        .subtract(1, 'months')
+        .format('YYYYMM'),
+    }));
+  };
+
   render() {
     return (
       <>
@@ -113,6 +129,8 @@ class App extends Component {
             days={this.state.events}
             addOrEditEvent={this.addOrEditEvent}
             deleteEvent={this.deleteEvent}
+            nextMonth={this.nextMonth}
+            prevMonth={this.prevMonth}
           />
         </ThemeProvider>
       </>
