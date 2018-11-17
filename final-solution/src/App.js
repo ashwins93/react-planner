@@ -102,7 +102,12 @@ class App extends Component {
         </Helmet>
         <GlobalStyles />
         <ThemeProvider theme={theme}>
-          <Calendar month={this.state.currentMonth} days={this.state.events} />
+          <Calendar
+            month={this.state.currentMonth}
+            days={this.state.events}
+            addOrEditEvent={this.addOrEditEvent}
+            deleteEvent={this.deleteEvent}
+          />
         </ThemeProvider>
       </>
     );

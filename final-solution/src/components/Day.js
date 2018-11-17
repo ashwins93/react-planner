@@ -95,7 +95,10 @@ class Day extends React.PureComponent {
         </Cards>
         {this.state.showModal && (
           <Modal closeModal={this.toggleModal}>
-            <Form heading="Add a Card" onSubmit={console.log} />
+            <Form heading="Add a Card" onSubmit={data => {
+              this.props.addOrEditEvent(data, this.props.addr);
+              this.toggleModal();
+            }} />
           </Modal>
         )}
       </StyledDay>

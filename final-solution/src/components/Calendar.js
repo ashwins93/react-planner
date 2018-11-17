@@ -28,7 +28,7 @@ const Calendar = props => {
   const days = Array.from(range.by('days')).map(day => {
     const key = day.format('YYYYMMDD');
     return (
-      <Day key={key} events={props.days[key]} day={day.format('ddd, DD')} />
+      <Day key={key} addr={key} events={props.days[key]} addOrEditEvent={props.addOrEditEvent} deleteEvent={props.deleteEvent} day={day.format('ddd, DD')} />
     );
   });
 

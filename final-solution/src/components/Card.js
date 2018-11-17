@@ -17,9 +17,9 @@ const StyledCard = styled.div`
   .badge {
     background-color: ${props => props.theme.primary};
     color: ${props => props.theme.white};
-    padding: 0.5rem;
+    padding: 0.5rem 1rem;
     border-radius: 4px;
-    font-size: 1.8rem;
+    font-size: 1.4rem;
   }
 `;
 
