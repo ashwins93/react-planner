@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import { Helmet } from "react-helmet";
 
+import moment from "./momentRange";
+
+window.moment = moment;
+
 class App extends Component {
   state = {
     events: {
